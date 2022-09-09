@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Prize;
 use Illuminate\Database\Seeder;
 
 class PrizeSeeder extends Seeder
@@ -13,6 +14,10 @@ class PrizeSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $prize1= Prize::create(['naziv'=>'NIN-ova nagrada','book_id'=>1]);
+        $prize2= Prize::create(['naziv'=>'Andriceva nagrada','book_id'=>2]);
+        $prize3= Prize::create(['naziv'=>'Disova nagrada','book_id'=>3]);
+        $prize4= Prize::create(['naziv'=>'Zmajeva nagrada','book_id'=>4]);
+        $prize5= Prize::create(['naziv'=>'Brankova nagrada','book_id'=>5]);
     }
 }

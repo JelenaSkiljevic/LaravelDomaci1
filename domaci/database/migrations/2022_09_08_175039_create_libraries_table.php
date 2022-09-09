@@ -15,7 +15,7 @@ class CreateLibrariesTable extends Migration
     {
         Schema::create('libraries', function (Blueprint $table) {
             $table->id();
-            $table->string('naziv');
+            $table->string('naziv')->unique();
             $table->string('adresa');
             $table->string('grad');
             $table->timestamps();
