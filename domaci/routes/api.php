@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\PrizeController;
@@ -39,3 +40,6 @@ Route::get('/prizes/{id}',[PrizeController::class,'show']);
 //biblioteka
 Route::get('/libraries',[LibraryController::class,'index']);
 Route::get('/libraries/{id}',[LibraryController::class,'show']);
+
+//ruta za funkcionisanje auth -register
+Route::post('/register',[AuthController::class,'register']);

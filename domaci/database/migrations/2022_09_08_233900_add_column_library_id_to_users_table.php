@@ -14,7 +14,7 @@ class AddColumnLibraryIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('id_library')->constrained('library')->onUpdate('cascade');
+            $table->foreignId('id_library')->default(1);
         });
     }
 
