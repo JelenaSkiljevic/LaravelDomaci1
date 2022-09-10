@@ -42,4 +42,6 @@ Route::get('/libraries',[LibraryController::class,'index']);
 Route::get('/libraries/{id}',[LibraryController::class,'show']);
 
 //ruta za funkcionisanje auth -register
-Route::post('/register',[AuthController::class,'register']);
+Route::post('/register', [AuthController::class, 'register']);
+//login
+Route::post('/login',[AuthController::class, 'login']);
