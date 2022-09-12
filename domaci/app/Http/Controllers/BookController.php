@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class BookController extends Controller
 {
@@ -37,7 +39,31 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //ulogovani korisnik dodaje knjige
+        $validator = Validator::make($request->all(), 
+            [
+                'naziv'=>'required|string|max:255',
+                // 'broj_strana'=>'required|integer',
+                // 'godina_izdavanja'=>'required|integer|min:0|max:2022',
+                // 'writer_id'=>'required|integer',
+                // 'genre_id'=>'required|integer',
+            ]);
+        
+        if ($validator->fails())
+            return response()->json($validator->errors());
+
+        $book = Book::create([
+            'naziv' => $request->naziv,
+            'broj_strana' => $request->broj_strana,
+            'godina_izdavanja' => $request->godina_izdavanja,
+            'writer_id' => $request->writer_id,
+            'genre_id' => $request->genre_id,
+            'library_id' => Auth::user()->library_id,
+        ]);
+
+        return response()->json(['Book is created successfully.', new BookResource($book)]);
+
+
     }
 
     /**
@@ -75,7 +101,27 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $validator = Validator::make($request->all(), 
+        [
+            'naziv'=>'required|string|max:255',
+            'broj_strana'=>'required|integer',
+            'godina_izdavanja'=>'required|integer|min:0|max:2022',
+            'writer_id'=>'required|integer',
+            'genre_id'=>'required|integer',
+        ]);
+    
+        if ($validator->fails())
+            return response()->json($validator->errors());
+
+        $book->naziv= $request->naziv;
+        $book->broj_strana= $request->broj_strana;
+        $book->godina_izdavanja= $request->godina_izdavanja;
+        $book->writer_id= $request->writer_id;
+        $book->genre_id= $request->genre_id;
+
+        $book->save();
+
+        return response()->json(['Book is updated successfully.', new BookResource($book)]);
     }
 
     /**
@@ -86,6 +132,7 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return response()->json('Book is deleted successfully.');
     }
 }

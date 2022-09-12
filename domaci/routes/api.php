@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\PrizeController;
 use App\Http\Controllers\WriterController;
@@ -25,13 +26,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-//vracanje knjiga
-Route::get('/books',[BookController::class,'index']);
+//vracanje knjiga ()
+//Route::get('/books',[BookController::class,'index']);
 Route::get('/books/{id}',[BookController::class,'show']);
 
 //pisaca
 Route::get('/writers',[WriterController::class,'index']);
 Route::get('/writers/{id}',[WriterController::class,'show']);
+
+//zanrova
+Route::get('/genres',[GenreController::class,'index']);
+Route::get('/genres/{id}',[GenreController::class,'show']);
 
 //vracanje nagrada
 Route::get('/prizes',[PrizeController::class,'index']);
@@ -45,3 +50,17 @@ Route::get('/libraries/{id}',[LibraryController::class,'show']);
 Route::post('/register', [AuthController::class, 'register']);
 //login
 Route::post('/login',[AuthController::class, 'login']);
+
+
+//ruta da jedino ulogovani user moze da menja, dodaje i brise knjige
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/profile', function (Request $request) {
+        return auth()->user();
+    });
+
+    Route::resource('/books', BookController::class)->only(['update', 'store', 'destroy']);
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
+
+Route::resource('/books', BookController::class)->only(['index']);

@@ -14,7 +14,8 @@ class BookResource extends JsonResource
      */
     public static $wrap = 'book';
     public function toArray($request)
-    {   return[
+    {   
+        return[
         'id'=>$this->resource->id,
         'naziv'=>$this->resource->naziv,
         'broj_strana'=>$this->resource->broj_strana,
