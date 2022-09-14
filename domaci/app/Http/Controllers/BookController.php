@@ -43,10 +43,10 @@ class BookController extends Controller
         $validator = Validator::make($request->all(), 
             [
                 'naziv'=>'required|string|max:255',
-                // 'broj_strana'=>'required|integer',
-                // 'godina_izdavanja'=>'required|integer|min:0|max:2022',
-                // 'writer_id'=>'required|integer',
-                // 'genre_id'=>'required|integer',
+                'broj_strana'=>'required|integer',
+                'godina_izdavanja'=>'required|integer|min:0|max:2022',
+                'writer_id'=>'required|integer',
+                'genre_id'=>'required|integer',
             ]);
         
         if ($validator->fails())

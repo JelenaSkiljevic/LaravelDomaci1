@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Prize extends Model
 {
     use HasFactory;
+
+    public function prize()
+    {
+        return $this->belongsTo(Book::class);
+    }
+
+
 }

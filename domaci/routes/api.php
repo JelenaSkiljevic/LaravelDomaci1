@@ -63,4 +63,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
+//ovoj ruti sa prikaz mogu svi
 Route::resource('/books', BookController::class)->only(['index']);

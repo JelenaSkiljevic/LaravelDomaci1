@@ -24,5 +24,10 @@ class Book extends Model
     {
         return $this->belongsTo(Genre::class);
     }
+
+    public function prizes()
+    {
+        return $this->hasMany(Prize::class);
+    }
 }
  

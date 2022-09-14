@@ -2,6 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Book;
+use App\Models\Genre;
+use App\Models\Library;
+use App\Models\Prize;
+use App\Models\Writer;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,7 +17,13 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
+    {   
+        Book::truncate();
+        Writer::truncate();
+        Prize::truncate();
+        Genre::truncate();
+        Library::truncate();
+
         \App\Models\User::factory(10)->create();
         $this->call([
             GenreSeeder::class,
